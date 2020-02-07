@@ -80,10 +80,10 @@ class CaptureEventProcedure
 			}
 		}
 	$order = $this->transaction->getTransactionData('tid', $tid);
-	$order_info = json_decode($order['additionalInfo']);
+	$order_info = json_decode($order[0]->additionalInfo);
 	 
 	    $this->getLogger(__METHOD__)->error('Decoded',json_decode($order['additionalInfo'], true));
-	     $this->getLogger(__METHOD__)->error('NNNNNNNNN',$order);
+	     $this->getLogger(__METHOD__)->error('NNNNNNNNNIIIIIII',$order_info);
 	
 	    
 	  $key = $order_info->payment_id;
