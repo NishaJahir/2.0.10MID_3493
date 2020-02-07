@@ -20,7 +20,7 @@ use Plenty\Modules\Order\Models\Order;
 use Plenty\Plugin\Log\Loggable;
 use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
 use Novalnet\Services\PaymentService;
-
+use Novalnet\Services\TransactionService;
 /**
  * Class CaptureEventProcedure
  */
@@ -33,6 +33,7 @@ class CaptureEventProcedure
 	 * @var PaymentService
 	 */
 	private $paymentService;
+	private $transaction;
 	
 	/**
 	 * Constructor.
@@ -41,9 +42,10 @@ class CaptureEventProcedure
 	 * @param PaymentService $paymentService
 	 */
 	 
-    public function __construct(PaymentService $paymentService)
+    public function __construct(PaymentService $paymentService, TransactionService $tranactionService,)
     {
 	    $this->paymentService  = $paymentService;
+	    $this->transaction          = $tranactionService;
 	}	
 	
     /**
@@ -56,9 +58,7 @@ class CaptureEventProcedure
 	 
 	    $order = $eventTriggered->getOrder(); 
 	    $payments = pluginApp(\Plenty\Modules\Payment\Contracts\PaymentRepositoryContract::class);  
-       	$paymentDetails = $payments->getPaymentsByOrderId($order->id);
-	    $paymentKey = $paymentDetails[0]->method->paymentKey;
-	    $key = $this->paymentService->getkeyByPaymentKey($paymentKey);	
+       	$paymentDetails = $payments->getPaymentsByOrderId($order->id);	
 	   
 	    foreach ($paymentDetails as $paymentDetail)
 		{
@@ -79,7 +79,8 @@ class CaptureEventProcedure
 				  }
 			}
 		}
-
+	$order = $this->transaction->getTransactionData('tid', $tid);
+	    $this->getLogger(__METHOD__)->error('key',$order);
 	    if(in_array($status, ['85', '91', '98', '99'])) {
         $this->paymentService->doCaptureVoid($order, $paymentDetails, $tid, $key, $invoiceDetails, true);
 	    } 
