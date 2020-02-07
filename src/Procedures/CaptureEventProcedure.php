@@ -42,7 +42,7 @@ class CaptureEventProcedure
 	 * @param PaymentService $paymentService
 	 */
 	 
-    public function __construct(PaymentService $paymentService, TransactionService $tranactionService,)
+    public function __construct(PaymentService $paymentService, TransactionService $tranactionService)
     {
 	    $this->paymentService  = $paymentService;
 	    $this->transaction          = $tranactionService;
