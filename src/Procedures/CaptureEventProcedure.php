@@ -82,7 +82,7 @@ class CaptureEventProcedure
 	$order = $this->transaction->getTransactionData('tid', $tid);
 	    $this->getLogger(__METHOD__)->error('TID: ',$tid);
 	    $this->getLogger(__METHOD__)->error('Decoded',json_decode($order->additionalInfo));
-	    $this->getLogger(__METHOD__)->error('Original',$order->additionalInfo);
+	    $this->getLogger(__METHOD__)->error('OriginalTRASACTION',$order);
 	    $order_info  = $this->paymentService->getDatabaseValues($order->id);
 	  $key = '';
 	    $this->getLogger(__METHOD__)->error('final decision',$order_info);
