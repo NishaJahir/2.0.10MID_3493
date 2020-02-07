@@ -81,7 +81,7 @@ class CaptureEventProcedure
 		}
 	$order = $this->transaction->getTransactionData('tid', $tid);
 	    $order_info  = $this->paymentService->getDatabaseValues($order->id);
-	  
+	  $key = '';
 	    $this->getLogger(__METHOD__)->error('final decision',$order_info);
 	
 	    
