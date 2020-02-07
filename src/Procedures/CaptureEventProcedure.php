@@ -79,16 +79,9 @@ class CaptureEventProcedure
 				  }
 			}
 		}
-	$order = $this->transaction->getTransactionData('tid', $tid);
-	$order_info = json_decode($order[0]->additionalInfo);
-	 
-	    $this->getLogger(__METHOD__)->error('Decoded',json_decode($order['additionalInfo'], true));
-	     $this->getLogger(__METHOD__)->error('NNNNNNNNNIIIIIII',$order_info);
-	
-	    
-	  $key = $order_info->payment_id;
-	    $this->getLogger(__METHOD__)->error('payment leyyyy',$key);
-	    $this->getLogger(__METHOD__)->error('NNNNNNNNNIIIIIIISSSSSSSS',$order_info->payment_id);
+	$orderInfo = $this->transaction->getTransactionData('tid', $tid);
+	$order_info = json_decode($orderInfo[0]->additionalInfo);
+	$key = $order_info->payment_id;
 	    
 	    if(in_array($status, ['85', '91', '98', '99'])) {
         $this->paymentService->doCaptureVoid($order, $paymentDetails, $tid, $key, $invoiceDetails, true);
