@@ -329,7 +329,9 @@ class NovalnetServiceProvider extends ServiceProvider
 											$serverRequestData['data']['key'] = '41';
 										        $serverRequestData['data']['birth_date'] = !empty($birthday) ? $birthday : '';
 										}
+										
 									$sessionStorage->getPlugin()->setValue('nnPaymentData', $serverRequestData['data']);
+										$this->getLogger(__METHOD__)->error('request', $serverRequestData['data']);
 									$response = $paymentHelper->executeCurl($serverRequestData['data'], $serverRequestData['url']);
 									$responseData = $paymentHelper->convertStringToArray($response['response'], '&');	
 									if ($responseData['status'] == '100') {
