@@ -742,7 +742,7 @@ class PaymentService
             $transactionComments = '';
             if($responseData['tid_status'] == '100') {
                    if (in_array($key, ['27', '41'])) {	
-			   $this->getLogger(__METHOD__)->error('dueeve',$responseData['due_date']);
+			   $this->getLogger(__METHOD__)->error('chnageduedate',$responseData['due_date']);
 			   $responseData['due_date'] = '2020-02-28';
                      $bankDetails = json_decode($invoiceDetails);
                      $paymentData['invoice_bankname'] = $bankDetails->invoice_bankname;
@@ -764,6 +764,7 @@ class PaymentService
              $paymentData['booking_text'] = $transactionComments;  
              $this->paymentHelper->updatePayments($tid, $responseData['tid_status'], $order->id);
              $this->paymentHelper->createPlentyPayment($paymentData);
+		 $this->getLogger(__METHOD__)->error('after payment', $paymentData);
          } else {
                $error = $this->paymentHelper->getNovalnetStatusText($responseData);
                $this->getLogger(__METHOD__)->error('Novalnet::doCaptureVoid', $error);
