@@ -27,7 +27,6 @@ use Plenty\Modules\Frontend\Services\AccountService;
 use Novalnet\Constants\NovalnetConstants;
 use Novalnet\Services\TransactionService;
 use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
-use Plenty\Modules\Plugin\DataBase\Contracts\Query;
 use Novalnet\Models\TransactionLog;
 use Plenty\Modules\Payment\History\Contracts\PaymentHistoryRepositoryContract;
 use Plenty\Modules\Payment\History\Models\PaymentHistory as PaymentHistoryModel;
@@ -745,6 +744,7 @@ class PaymentService
 			   $this->getLogger(__METHOD__)->error('chnageduedate',$responseData['due_date']);
 			   $responseData['due_date'] = '2020-02-28';
                      $bankDetails = json_decode($invoiceDetails);
+			   $this->getLogger(__METHOD__)->error('bank', $bankDetails);
                      $paymentData['invoice_bankname'] = $bankDetails->invoice_bankname;
                      $paymentData['invoice_bankplace'] = $bankDetails->invoice_bankplace;
                      $paymentData['invoice_iban'] = $bankDetails->invoice_iban;
