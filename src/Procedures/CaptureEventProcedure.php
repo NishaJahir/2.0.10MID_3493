@@ -80,12 +80,13 @@ class CaptureEventProcedure
 			}
 		}
 	$order = $this->transaction->getTransactionData('tid', $tid);
-	    $this->getLogger(__METHOD__)->error('TID: ',$tid);
-	    $this->getLogger(__METHOD__)->error('Decoded',json_decode($order->additionalInfo));
-	    $this->getLogger(__METHOD__)->error('OriginalTRASACTION',$order);
-	    $order_info  = $this->paymentService->getDatabaseValues($order->id);
-	  $key = '';
-	    $this->getLogger(__METHOD__)->error('final decision',$order_info);
+	$order_info = json_decode($order['additionalInfo'], true);
+	 
+	    $this->getLogger(__METHOD__)->error('Decoded',json_decode($order['additionalInfo'], true));
+	    
+	    
+	  $key = $order_info->payment_id;
+	    $this->getLogger(__METHOD__)->error('payment leyyyy',$key);
 	
 	    
 	    if(in_array($status, ['85', '91', '98', '99'])) {
