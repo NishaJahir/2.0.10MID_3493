@@ -750,8 +750,6 @@ class PaymentService
                      $paymentData['invoice_iban'] = $bankDetails->invoice_iban;
                      $paymentData['invoice_bic'] = $bankDetails->invoice_bic;
                      $paymentData['due_date'] = $responseData['due_date'];
-                     $paymentData['invoice_type'] = 'INVOICE';
-                     $paymentData['invoice_account_holder'] = 'NOVALNETAG';
                      $paymentData['payment_id'] = $key;
                  } 
                $transactionComments .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transaction_confirmation', $paymentRequestData['lang']), date('d.m.Y'), date('H:i:s'));
