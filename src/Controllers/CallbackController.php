@@ -617,6 +617,8 @@ class CallbackController extends Controller
             }   
                 else 
                 {
+		    $mailContent = 'Order No or Customer No missed for the order';
+		    $this->sendCallbackMail($mailContent);
                     return 'Transaction mapping failed';
                 }
         }
