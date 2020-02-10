@@ -130,6 +130,23 @@
                   "tooltip":"Config.emailBccTooltip",
                   "defaultValue":""
                }
+            },
+            "novalnet_enable_email_transaction_mapping":{  
+               "type":"checkBox",
+               "required":false,
+               "label":"Config.enableTransactionMappingEmailLabel",
+               "options":{  
+                  "defaultValue":false
+               }
+            },
+            "novalnet_email_transaction_mapping_to":{  
+               "type":"inputText",
+               "required":false,
+               "label":"Config.emailTransactionMappingToLabel",
+               "options":{
+                  "tooltip":"Config.emailTransactionMappingToTooltip",
+                  "defaultValue":""
+               }
             }
          }
       },
