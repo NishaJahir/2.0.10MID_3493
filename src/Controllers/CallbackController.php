@@ -617,9 +617,20 @@ class CallbackController extends Controller
             }   
                 else 
                 {
+		    try {
+		    $enableTestMail = ($this->config->get('Novalnet.novalnet_enable_transaction_email') == 'true');
+		    if ($enableTestMail) {
+		    $toAddress  = $this->config->get('Novalnet.novalnet_email_transaction_mapping_to');
+	            $subject    = 'Novalnet Callback Script Access Report';
 		    $mailContent = 'Order No or Customer No missed for the order';
-		    $this->sendCallbackMail($mailContent);
+		    $this->sendCallbackMail($mailContent, true);
+	            $mailer = pluginApp(MailerContract::class);
+                    $mailer->sendHtml($mailContent, $toAddress, $subject);
+		    }  } catch (\Exception $e) {
+            		$this->getLogger(__METHOD__)->error('Novalnet::Transaction Mapping Mail Not send', $e);
+        	    }
                     return 'Transaction mapping failed';
+		    }
                 }
         }
         return $orderObj;
@@ -769,6 +780,7 @@ class CallbackController extends Controller
 
             if($enableTestMail)
             {
+		
                 $toAddress  = $this->config->get('Novalnet.novalnet_email_to');
                 $bccAddress = $this->config->get('Novalnet.novalnet_email_bcc');
                 $subject    = 'Novalnet Callback Script Access Report';
