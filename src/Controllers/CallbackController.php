@@ -599,7 +599,7 @@ class CallbackController extends Controller
             {
                 
                 $order_ref = $this->orderObject($orderId);
-                
+                $this->getLogger(__METHOD__)->error('order info', $order_ref);
                 if(empty($order_ref))
                 {
                     
