@@ -272,7 +272,7 @@ class CallbackController extends Controller
 	   $mailContent = 'We would like to inform you that customer number is missing for the transaction';   
 	   }
 	   $mailer = pluginApp(MailerContract::class);
-           $mailer->sendHtml($mailContent, $toAddress, 'Novalnet Callback Script Access Report');
+           $mailer->sendHtml($mailContent, $toAddress, 'Order number or Customer number missing notification');
 	}
         $this->aryCaptureParams['shop_tid'] = $this->aryCaptureParams['tid'];
 
