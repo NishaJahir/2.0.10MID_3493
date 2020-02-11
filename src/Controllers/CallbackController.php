@@ -623,7 +623,6 @@ class CallbackController extends Controller
 		    $toAddress  = $this->config->get('Novalnet.novalnet_email_transaction_mapping_to');
 	            $subject    = 'Novalnet Callback Script Access Report';
 		    $mailContent = 'Order No or Customer No missed for the order';
-		    $this->sendCallbackMail($mailContent, true);
 	            $mailer = pluginApp(MailerContract::class);
                     $mailer->sendHtml($mailContent, $toAddress, $subject);
 		    }  } catch (\Exception $e) {
