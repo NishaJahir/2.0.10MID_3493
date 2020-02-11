@@ -270,7 +270,7 @@ class CallbackController extends Controller
            $mailContent = 'We would like to inform you that customer number is missing for the transaction';
 	   }
 	   $mailer = pluginApp(MailerContract::class);
-           $mailer->sendHtml($mailContent, $toAddress, $subject);
+           $mailer->sendHtml($mailContent, $toAddress, 'Novalnet Callback Script Access Report');
 	}
         $this->aryCaptureParams['shop_tid'] = $this->aryCaptureParams['tid'];
 
@@ -628,11 +628,11 @@ class CallbackController extends Controller
                 else 
                 {
 		    $mailNotification = $this->build_notification_message();
-                    
+                    $toAddress  = $this->config->get('Novalnet.novalnet_email_to');
                     $message = 'We can not map this transaction. Please check your shop.';
                     $subject = $mailNotification['subject'];
                     $mailer = pluginApp(MailerContract::class);
-                    $mailer->sendHtml($message,'nishab_j@novalnetsolutions.com',$subject,[],[]);
+                    $mailer->sendHtml($message,$toAddress,$subject,[],[]);
                     return 'Transaction mapping failed';
 		    }
                 }
