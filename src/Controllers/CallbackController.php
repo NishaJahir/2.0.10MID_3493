@@ -612,32 +612,10 @@ class CallbackController extends Controller
                 
                 $order_ref = $this->orderObject($orderId);
                 $this->getLogger(__METHOD__)->error('order info', $order_ref);
-                if(empty($order_ref))
-                {
-                    
-                    $mailNotification = $this->build_notification_message();
-                    
-                    $message = $mailNotification['message'];
-                    $subject = $mailNotification['subject'];
-                    $mailer = pluginApp(MailerContract::class);
-                    $mailer->sendHtml($message,'nishab_j@novalnetsolutions.com',$subject,[],[]);
-                    return $this->renderTemplate($mailNotification['message']);
-                }
-
                 return $this->handleCommunicationBreak($order_ref);
                 
             }   
-                else 
-                {
-		    $mailNotification = $this->build_notification_message();
-                    
-                    $message = $mailNotification['message'];
-                    $subject = $mailNotification['subject'];
-                    $mailer = pluginApp(MailerContract::class);
-                    $mailer->sendHtml($message,'nishab_j@novalnetsolutions.com',$subject,[],[]);
-                    return $this->renderTemplate($mailNotification['message']);
-		    
-                }
+                
 	}
         return $orderObj;
     }
