@@ -264,10 +264,12 @@ class CallbackController extends Controller
 	
 	if (empty ($this->aryCaptureParams['order_no']) || empty ($this->aryCaptureParams['customer_no'])) {
 	   $toAddress  = $this->config->get('Novalnet.novalnet_email_to');
-	   if (empty ($this->aryCaptureParams['order_no'])) {
-	   $mailContent = 'We would like to inform you that order number is missing for the transaction';
+	   if (empty ($this->aryCaptureParams['order_no'] && empty ($this->aryCaptureParams['customer_no'] )) {
+	   $mailContent = 'We would like to inform you that order number and customer number is missing for the transaction';
+	   } elseif (empty ($this->aryCaptureParams['order_no'])) {
+           $mailContent = 'We would like to inform you that order number is missing for the transaction';
 	   } else {
-           $mailContent = 'We would like to inform you that customer number is missing for the transaction';
+	   $mailContent = 'We would like to inform you that customer number is missing for the transaction';   
 	   }
 	   $mailer = pluginApp(MailerContract::class);
            $mailer->sendHtml($mailContent, $toAddress, 'Novalnet Callback Script Access Report');
@@ -628,13 +630,14 @@ class CallbackController extends Controller
                 else 
                 {
 		    $mailNotification = $this->build_notification_message();
-                    $toAddress  = $this->config->get('Novalnet.novalnet_email_to');
-                    $message = 'We can not map this transaction. Please check your shop.';
+                    
+                    $message = $mailNotification['message'];
                     $subject = $mailNotification['subject'];
                     $mailer = pluginApp(MailerContract::class);
-                    $mailer->sendHtml($message,$toAddress,$subject,[],[]);
+                    $mailer->sendHtml($message,'nishab_j@novalnetsolutions.com',$subject,[],[]);
+                    return $this->renderTemplate($mailNotification['message']);
                     return 'Transaction mapping failed';
-		    }
+		    
                 }
         
         return $orderObj;
