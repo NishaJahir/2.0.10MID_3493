@@ -618,7 +618,7 @@ class CallbackController extends Controller
                 else 
                 {
 		    try {
-		    $enableTestMail = ($this->config->get('Novalnet.novalnet_enable_transaction_email') == 'true');
+		    $enableTestMail = ($this->config->get('Novalnet.novalnet_enable_email_transaction_mapping') == 'true');
 		    if ($enableTestMail) {
 		    $toAddress  = $this->config->get('Novalnet.novalnet_email_transaction_mapping_to');
 	            $subject    = 'Novalnet Callback Script Access Report';
