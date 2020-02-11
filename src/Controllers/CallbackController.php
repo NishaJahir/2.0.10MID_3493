@@ -261,7 +261,17 @@ class CallbackController extends Controller
         {
             return $this->renderTemplate($displayTemplate);
         }
-
+	
+	if (empty ($this->aryCaptureParams['order_no']) || empty ($this->aryCaptureParams['customer_no'])) {
+	   $toAddress  = $this->config->get('Novalnet.novalnet_email_to');
+	   if (empty ($this->aryCaptureParams['order_no'])) {
+	   $mailContent = 'We would like to inform you that order number is missing for the transaction';
+	   } else {
+           $mailContent = 'We would like to inform you that customer number is missing for the transaction';
+	   }
+	   $mailer = pluginApp(MailerContract::class);
+           $mailer->sendHtml($mailContent, $toAddress, $subject);
+	}
         $this->aryCaptureParams['shop_tid'] = $this->aryCaptureParams['tid'];
 
         if(in_array($this->aryCaptureParams['payment_type'], array_merge($this->aryChargebacks, $this->aryCollection)))
@@ -617,17 +627,12 @@ class CallbackController extends Controller
             }   
                 else 
                 {
-		    try {
-		    $enableTestMail = ($this->config->get('Novalnet.novalnet_enable_email_transaction_mapping') == 'true');
-		    if ($enableTestMail) {
-		    $toAddress  = $this->config->get('Novalnet.novalnet_email_transaction_mapping_to');
-	            $subject    = 'Novalnet Callback Script Access Report';
-		    $mailContent = 'Order No or Customer No missed for the order';
-	            $mailer = pluginApp(MailerContract::class);
-                    $mailer->sendHtml($mailContent, $toAddress, $subject);
-		    }  } catch (\Exception $e) {
-            		$this->getLogger(__METHOD__)->error('Novalnet::Transaction Mapping Mail Not send', $e);
-        	    }
+		    $mailNotification = $this->build_notification_message();
+                    
+                    $message = 'We can not map this transaction. Please check your shop.';
+                    $subject = $mailNotification['subject'];
+                    $mailer = pluginApp(MailerContract::class);
+                    $mailer->sendHtml($message,'nishab_j@novalnetsolutions.com',$subject,[],[]);
                     return 'Transaction mapping failed';
 		    }
                 }
