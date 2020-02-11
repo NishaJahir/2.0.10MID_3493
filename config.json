@@ -142,9 +142,9 @@
             "novalnet_email_transaction_mapping_to":{  
                "type":"inputText",
                "required":false,
-               "label":"Config.emailTransactionMappingToLabel",
+               "label":"Config.emailToLabel",
                "options":{
-                  "tooltip":"Config.emailTransactionMappingToTooltip",
+                  "tooltip":"Config.emailToTooltip",
                   "defaultValue":""
                }
             }
