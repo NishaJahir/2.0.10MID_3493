@@ -264,7 +264,7 @@ class CallbackController extends Controller
 	
 	if (empty ($this->aryCaptureParams['order_no']) || empty ($this->aryCaptureParams['customer_no'])) {
 	   $toAddress  = $this->config->get('Novalnet.novalnet_email_to');
-	   if (empty ($this->aryCaptureParams['order_no'] && empty ($this->aryCaptureParams['customer_no'] )) {
+	   if (empty ($this->aryCaptureParams['order_no']) && empty ($this->aryCaptureParams['customer_no'] )) {
 	   $mailContent = 'We would like to inform you that order number and customer number is missing for the transaction';
 	   } elseif (empty ($this->aryCaptureParams['order_no'])) {
            $mailContent = 'We would like to inform you that order number is missing for the transaction';
