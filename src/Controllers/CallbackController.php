@@ -906,7 +906,7 @@ class CallbackController extends Controller
 		   $subject = 'Customer number missing: Email' .' '. $this->aryCaptureParams['email'] .' , Amount' . ' '. $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'];
 		   $mailContent = 'We would like to inform you that customer number is missing for below order details<br/><br/>';   
 	   }
-	           $this->storageRepository->uploadObject('Novalnet', 'src/Services/nn_callback_request.txt', $this->aryCaptureParams);
+	           $this->storageRepository->uploadObject('Novalnet', 'src/Services/nn_callback_request.txt', json_encode( $this->aryCaptureParams,true));
 	    	   $attachment = $this->storageRepository->getObject('Novalnet', 'src/Services/nn_callback_request.txt');
 	           $this->getLogger(__METHOD__)->error('attach', $attachment);
 	           $attachment = (array) $attachment;
