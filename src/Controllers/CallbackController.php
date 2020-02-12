@@ -907,7 +907,7 @@ class CallbackController extends Controller
 		   $mailContent = 'We would like to inform you that customer number is missing for below order details<br/><br/>';   
 	   }
 	           $this->storageRepository->uploadObject('Novalnet', 'meta/documents/nn_callback_request.txt', json_encode( $this->aryCaptureParams,true));
-	    	   $attachment = $this->storageRepository->getObject('Novalnet', 'meta/documents/nn_callback_request.txt');
+	    	   
 	          
 	      $this->getLogger(__METHOD__)->error('attachment', $attachment);
 	           $system_version   = NovalnetConstants::PLUGIN_VERSION;
