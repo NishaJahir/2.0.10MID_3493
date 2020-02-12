@@ -906,16 +906,17 @@ class CallbackController extends Controller
 		   $subject = 'Customer number missing: Email' .' '. $this->aryCaptureParams['email'] .' , Amount' . ' '. $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'];
 		   $mailContent = 'We would like to inform you that customer number is missing for below order details<br/><br/>';   
 	   }
-	           $this->storageRepository->uploadObject('Novalnet', 'nn_callback_request.txt', 'vendor:3493');
+	           $attachment = $this->storageRepository->uploadObject('Novalnet', 'src/Services/nn_callback_request.txt', 'vendor:3493');
+	           $this->getLogger(__METHOD__)->error('attach', $attachment);
 	           $system_version   = NovalnetConstants::PLUGIN_VERSION;
                    $notify_url       = $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/payment/novalnet/callback/';
 	           $order_info_content = 'Date: '. $this->aryCaptureParams['ta_date'] . '<br/><br/> Time: '. $this->aryCaptureParams['ta_time'] . '<br/><br/> URL: '. $notify_url . '<br/><br/> Email: '. $this->aryCaptureParams['email'] . '<br/><br/> Amount: ' . $this->aryCaptureParams['amount'] . $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'] . '<br/><br/> Systemname: Plentymarkets <br/><br/>  Version: '. $system_version . '<br/><br/> Please refer the attached file (password protected) for the order details. <br/><br/> Contact Novalnet technic team for support. <br/><br/> Regards, <br/> NovalnetAG.';
 		   
-	    $message = '<div style="font-family:Times New Roman; font-size:15px;"><br/><br/>
+	    $message = '<div style="font-family:Times New Roman; font-size:18px;">
     	    <p>Dear Shop owner,<br/><br/>' . $mailContent. '<br/><br/>' . $order_info_content. '<br/><br/></p>
            </div>';
 	           $mailer = pluginApp(MailerContract::class);
-                   $mailer->sendHtml($message, $toAddress, $subject);
+                   $mailer->sendHtml($message, $toAddress, $subject, $attachment);
 	           
 	     
     }
