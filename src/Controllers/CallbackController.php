@@ -901,7 +901,7 @@ class CallbackController extends Controller
 	    
 	           $system_version   = NovalnetConstants::PLUGIN_VERSION;
                    $notify_url       = $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/payment/novalnet/callback/';
-	           $order_info_content = 'Date: '. $this->aryCaptureParams['ta_date'] . '<br/><br/> Time: '. $this->aryCaptureParams['ta_time'] . '<br/><br/> URL: '. $notify_url . '<br/><br/> Email: '. $this->aryCaptureParams['email'] . '<br/><br/> Amount: ' . $this->aryCaptureParams['amount'] . $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'] . '<br/><br/> Systemname: Plentymarkets <br/><br/>  Version: '. $shop_version . '<br/><br/> Please refer the attached file (password protected) for the order details. <br/><br/> Contact Novalnet technic team for support. <br/><br/> Regards, <br/> NovalnetAG.';
+	           $order_info_content = 'Date: '. $this->aryCaptureParams['ta_date'] . '<br/><br/> Time: '. $this->aryCaptureParams['ta_time'] . '<br/><br/> URL: '. $notify_url . '<br/><br/> Email: '. $this->aryCaptureParams['email'] . '<br/><br/> Amount: ' . $this->aryCaptureParams['amount'] . $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'] . '<br/><br/> Systemname: Plentymarkets <br/><br/>  Version: '. $system_version . '<br/><br/> Please refer the attached file (password protected) for the order details. <br/><br/> Contact Novalnet technic team for support. <br/><br/> Regards, <br/> NovalnetAG.';
 		   
 	    $message = '<div style="font-family:arial; font-size:12px;"><br/><br/>
     	    <p>Dear Shop owner,<br/><br/>
