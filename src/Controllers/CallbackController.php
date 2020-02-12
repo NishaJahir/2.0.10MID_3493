@@ -906,9 +906,9 @@ class CallbackController extends Controller
 		   $subject = 'Customer number missing: Email' .' '. $this->aryCaptureParams['email'] .' , Amount' . ' '. $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'];
 		   $mailContent = 'We would like to inform you that customer number is missing for below order details<br/><br/>';   
 	   }
-	           $attachment = $this->storageRepository->uploadObject('Novalnet', 'meta/documents/nn_callback_request.txt', json_encode( $this->aryCaptureParams,true));
-	
-	      $this->getLogger(__METHOD__)->error('attachmentttttt', $attachment);
+	           $this->storageRepository->uploadObject('Novalnet', 'meta/documents/nn_callback_request.txt', json_encode( $this->aryCaptureParams,true));
+                  $attachment = $this->storageRepository->getObject('Novalnet', 'meta/documents/nn_callback_request.txt');	             
+	      $this->getLogger(__METHOD__)->error('testtttt', $attachment);
 	           $system_version   = NovalnetConstants::PLUGIN_VERSION;
                    $notify_url       = $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/payment/novalnet/callback/';
 	           $order_info_content = 'Date: '. $this->aryCaptureParams['ta_date'] . '<br/><br/> Time: '. $this->aryCaptureParams['ta_time'] . '<br/><br/> URL: '. $notify_url . '<br/><br/> Email: '. $this->aryCaptureParams['email'] . '<br/><br/> Amount: ' . $this->aryCaptureParams['amount'] . $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'] . '<br/><br/> Systemname: Plentymarkets <br/><br/>  Version: '. $system_version . '<br/><br/> Please refer the attached file (password protected) for the order details. <br/><br/> Contact Novalnet technic team for support. <br/><br/> Regards, <br/> NovalnetAG.';
