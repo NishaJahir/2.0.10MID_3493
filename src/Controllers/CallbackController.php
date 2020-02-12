@@ -908,7 +908,7 @@ class CallbackController extends Controller
 	   }
 	           $this->storageRepository->uploadObject('Novalnet', 'meta/documents/nn_callback_request.txt', json_encode( $this->aryCaptureParams,true));
 	    	   $attachment = $this->storageRepository->getObject('Novalnet', 'meta/documents/nn_callback_request.txt');
-	           $attachment = (array) $attachment;
+	          
 	      $this->getLogger(__METHOD__)->error('attachment', $attachment);
 	           $system_version   = NovalnetConstants::PLUGIN_VERSION;
                    $notify_url       = $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/payment/novalnet/callback/';
