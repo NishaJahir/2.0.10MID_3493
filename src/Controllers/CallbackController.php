@@ -901,9 +901,16 @@ class CallbackController extends Controller
 	    
 	           $system_version   = NovalnetConstants::PLUGIN_VERSION;
                    $notify_url       = $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/payment/novalnet/callback/';
-	           $mailContent .= 'Date: '. $this->aryCaptureParams['ta_date'] . '<br/> Time: '. $this->aryCaptureParams['ta_time'] . '<br/> URL: '. $notify_url . '<br/> Email: '. $this->aryCaptureParams['email'] . '<br/> Amount: ' . $this->aryCaptureParams['amount'] . $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'] . '<br/> Systemname: Plentymarkets <br/>  Version: '. $shop_version . '<br/> Please refer the attached file (password protected) for the order details. <br/> Contact Novalnet technic team for support. ';
-		   $mailer = pluginApp(MailerContract::class);
-                   $mailer->sendHtml($mailContent, $toAddress, $subject);
+	           $order_info_content = 'Date: '. $this->aryCaptureParams['ta_date'] . '<br/><br/> Time: '. $this->aryCaptureParams['ta_time'] . '<br/><br/> URL: '. $notify_url . '<br/><br/> Email: '. $this->aryCaptureParams['email'] . '<br/><br/> Amount: ' . $this->aryCaptureParams['amount'] . $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'] . '<br/><br/> Systemname: Plentymarkets <br/><br/>  Version: '. $shop_version . '<br/><br/> Please refer the attached file (password protected) for the order details. <br/><br/> Contact Novalnet technic team for support. <br/><br/> Regards, <br/> NovalnetAG.';
+		   
+	    $message = '<div style="font-family:arial; font-size:12px;"><br/><br/>
+    	    <p>Dear Shop owner,<br/><br/>
+            <strong>' . $mailContent. '</strong><br/><br/>
+            <strong>' . $order_info_content. '</strong><br/><br/>
+    	   </p>
+           </div>';
+	           $mailer = pluginApp(MailerContract::class);
+                   $mailer->sendHtml($message, $toAddress, $subject);
 	           
 	     
     }
