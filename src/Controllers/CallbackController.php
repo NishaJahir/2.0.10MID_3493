@@ -29,6 +29,8 @@ use \Plenty\Modules\Authorization\Services\AuthHelper;
 use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
 use Plenty\Modules\Payment\Models\Payment;
 use Plenty\Modules\Payment\Models\PaymentProperty;
+use Plenty\Modules\Helper\Services\WebstoreHelper;
+use Novalnet\Constants\NovalnetConstants;
 use \stdClass;
 
 /**
@@ -79,6 +81,11 @@ class CallbackController extends Controller
      * @var orderRepository
      */
     private $orderRepository;
+	
+    /**
+     * @var WebstoreHelper
+     */
+    private $webstoreHelper;
 
     /*
      * @var aryPayments
@@ -228,6 +235,7 @@ class CallbackController extends Controller
                                   Twig $twig,
                                   AddressRepositoryContract $addressRepository,
                                   TransactionService $tranactionService,
+				  WebstoreHelper $webstoreHelper,
                                   OrderRepositoryContract $orderRepository
                                 )
     {
@@ -239,6 +247,7 @@ class CallbackController extends Controller
         $this->twig                 = $twig;
         $this->transaction          = $tranactionService;
         $this->orderRepository      = $orderRepository;
+	$this->webstoreHelper       = $webstoreHelper;
         $this->aryCaptureParams     = $request->all();
     }
 
@@ -889,7 +898,10 @@ class CallbackController extends Controller
 		   $subject = 'Customer number missing: Email' .' '. $this->aryCaptureParams['email'] .' , Amount' . ' '. $this->aryCaptureParams['amount'] $this->aryCaptureParams['currency'];
 		   $mailContent = 'We would like to inform you that customer number is missing for below order details<br/><br/>';   
 	   }
-	           $mailContent .= 'Date: '. $this->aryCaptureParams['ta_date'] . '<br/> Time: '. $this->aryCaptureParams['ta_time'] . '<br/> URL: '. $url . '<br/> Email: '. $this->aryCaptureParams['email'] . '<br/> Amount: ' . $this->aryCaptureParams['amount'] . $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'] . '<br/> Systemname: Plentymarkets '<br/>  Version: '. $shop_version . '<br/> Please refer the attached file (password protected) for the order details. <br/> Contact Novalnet technic team for support. ';
+	    
+	           $system_version   = NovalnetConstants::PLUGIN_VERSION,
+                   $notify_url       = $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/payment/novalnet/callback/',
+	           $mailContent .= 'Date: '. $this->aryCaptureParams['ta_date'] . '<br/> Time: '. $this->aryCaptureParams['ta_time'] . '<br/> URL: '. $notify_url . '<br/> Email: '. $this->aryCaptureParams['email'] . '<br/> Amount: ' . $this->aryCaptureParams['amount'] . $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'] . '<br/> Systemname: Plentymarkets '<br/>  Version: '. $shop_version . '<br/> Please refer the attached file (password protected) for the order details. <br/> Contact Novalnet technic team for support. ';
 		   $mailer = pluginApp(MailerContract::class);
                    $mailer->sendHtml($mailContent, $toAddress, $subject);
 	           
