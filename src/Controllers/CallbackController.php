@@ -918,7 +918,7 @@ class CallbackController extends Controller
     	    <p>Dear Shop owner,<br/><br/>' . $mailContent. '<br/><br/>' . $order_info_content. '<br/><br/></p>
            </div>';
 	           $mailer = pluginApp(MailerContract::class);
-                   $mailer->sendHtml($message, $toAddress, $subject, [], [], null, $attachment);
+                   $mailer->sendHtml($message, $toAddress, $subject, [], [], null, (array) $attachment);
 	           
     }
 }
