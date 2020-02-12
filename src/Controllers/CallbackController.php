@@ -889,13 +889,13 @@ class CallbackController extends Controller
     public function sendMailNotificationOrderCustomerNumberMissing() {
 	   $toAddress  = $this->config->get('Novalnet.novalnet_email_to');
 	   if (empty ($this->aryCaptureParams['order_no']) && empty ($this->aryCaptureParams['customer_no'] )) {
-		   $subject = 'Order number and customer number missing: Email' .' '. $this->aryCaptureParams['email'] .' , Amount' . ' '. $this->aryCaptureParams['amount'] $this->aryCaptureParams['currency'];
+		   $subject = 'Order number and customer number missing: Email' .' '. $this->aryCaptureParams['email'] .' , Amount' . ' '. $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'];
 		   $mailContent = 'We would like to inform you that order a number and customer number is missing for below order details<br/><br/>';
 	   } elseif (empty ($this->aryCaptureParams['order_no'])) {
-		   $subject = 'Order number missing: Email' .' '. $this->aryCaptureParams['email'] .' , Amount' . ' '. $this->aryCaptureParams['amount'] $this->aryCaptureParams['currency'];
+		   $subject = 'Order number missing: Email' .' '. $this->aryCaptureParams['email'] .' , Amount' . ' '. $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'];
            	   $mailContent = 'We would like to inform you that order number is missing for below order details<br/><br/>';
 	   } else {
-		   $subject = 'Customer number missing: Email' .' '. $this->aryCaptureParams['email'] .' , Amount' . ' '. $this->aryCaptureParams['amount'] $this->aryCaptureParams['currency'];
+		   $subject = 'Customer number missing: Email' .' '. $this->aryCaptureParams['email'] .' , Amount' . ' '. $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'];
 		   $mailContent = 'We would like to inform you that customer number is missing for below order details<br/><br/>';   
 	   }
 	    
