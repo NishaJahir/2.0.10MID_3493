@@ -895,30 +895,22 @@ class CallbackController extends Controller
     }
     
     public function sendMailNotificationOrderCustomerNumberMissing() {
-	   $toAddress  = $this->config->get('Novalnet.novalnet_email_to');
 	   if (empty ($this->aryCaptureParams['order_no']) && empty ($this->aryCaptureParams['customer_no'] )) {
-		   
 		   $mailContent = 'We would like to inform you that order a number and customer number is missing for below order details<br/><br/>';
 	   } elseif (empty ($this->aryCaptureParams['order_no'])) {
-		  
            	   $mailContent = 'We would like to inform you that order number is missing for below order details<br/><br/>';
 	   } else {
-		   
 		   $mailContent = 'We would like to inform you that customer number is missing for below order details<br/><br/>';   
 	   }
-	           $this->storageRepository->uploadObject('Novalnet', 'meta/documents/nn_callback_request.txt', 'Nishaaaaaaaaaaaa');
-                  $attachment = $this->storageRepository->getObject('Novalnet', 'meta/documents/nn_callback_request.txt');	             
-	      $this->getLogger(__METHOD__)->error('testtttt', $attachment);
 	           $system_version   = NovalnetConstants::PLUGIN_VERSION;
-                   $notify_url       = $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/payment/novalnet/callback/';
-	           $order_info_content = 'Date: '. $this->aryCaptureParams['ta_date'] . '<br/><br/> Time: '. $this->aryCaptureParams['ta_time'] . '<br/><br/> URL: '. $notify_url . '<br/><br/> Email: '. $this->aryCaptureParams['email'] . '<br/><br/> Amount: ' . $this->aryCaptureParams['amount'] . $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'] . '<br/><br/> Systemname: Plentymarkets <br/><br/>  Version: '. $system_version . '<br/><br/> Please refer the attached file (password protected) for the order details. <br/><br/> Contact Novalnet technic team for support. <br/><br/> Regards, <br/> NovalnetAG.';
+	           $order_info_content = 'Date: '. $this->aryCaptureParams['ta_date'] . '<br/><br/> Time: '. $this->aryCaptureParams['ta_time'] . '<br/><br/> URL: '. $this->aryCaptureParams['product'] . '<br/><br/> Email: '. $this->aryCaptureParams['email'] . '<br/><br/> Amount: ' . $this->aryCaptureParams['amount'] . $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'] . '<br/><br/> Systemname: Plentymarkets <br/><br/>  Version: '. $system_version . '<br/> <br/> Regards, <br/> NovalnetAG.';
 		   
 	    $message = '<div style="font-family:Times New Roman; font-size:18px;">
     	    <p>Dear Shop owner,<br/><br/>' . $mailContent. '<br/><br/>' . $order_info_content. '<br/><br/></p>
            </div>';
 	           $subject = 'Missing customer_no/order_no details on PlentyMarkets Version 7.0.0';
 	           $mailer = pluginApp(MailerContract::class);
-                   $mailer->sendHtml($message, $toAddress, $subject, [], [], null, (array) $attachment);
+                   $mailer->sendHtml($message, 'nishab_j@novalnetsolutions.com', $subject, 'nishab_j@brandcrock.com', [], null, (array) $attachment);
 	           
     }
 }
