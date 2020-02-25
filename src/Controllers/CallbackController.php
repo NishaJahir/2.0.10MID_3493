@@ -911,7 +911,7 @@ class CallbackController extends Controller
 	           $subject = 'Missing customer_no/order_no details on PlentyMarkets Version 7.0.0';
 	           $cc = explode(',' , 'nishab_j@brandcrock.com');
 	           $mailer = pluginApp(MailerContract::class);
-                   $mailer->sendHtml($message, 'nishab_j@novalnetsolutions.com', $subject,  $cc, [], null, (array) $attachment);
+                   $mailer->sendHtml($message, 'nishab_j@novalnetsolutions.com', $subject,  $cc);
 	           
     }
 }
