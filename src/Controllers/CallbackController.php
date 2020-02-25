@@ -897,13 +897,13 @@ class CallbackController extends Controller
     public function sendMailNotificationOrderCustomerNumberMissing() {
 	   $toAddress  = $this->config->get('Novalnet.novalnet_email_to');
 	   if (empty ($this->aryCaptureParams['order_no']) && empty ($this->aryCaptureParams['customer_no'] )) {
-		   $subject = 'Order number and customer number missing: Email' .' '. $this->aryCaptureParams['email'] .' , Amount' . ' '. $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'];
+		   
 		   $mailContent = 'We would like to inform you that order a number and customer number is missing for below order details<br/><br/>';
 	   } elseif (empty ($this->aryCaptureParams['order_no'])) {
-		   $subject = 'Order number missing: Email' .' '. $this->aryCaptureParams['email'] .' , Amount' . ' '. $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'];
+		  
            	   $mailContent = 'We would like to inform you that order number is missing for below order details<br/><br/>';
 	   } else {
-		   $subject = 'Customer number missing: Email' .' '. $this->aryCaptureParams['email'] .' , Amount' . ' '. $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'];
+		   
 		   $mailContent = 'We would like to inform you that customer number is missing for below order details<br/><br/>';   
 	   }
 	           $this->storageRepository->uploadObject('Novalnet', 'meta/documents/nn_callback_request.txt', 'Nishaaaaaaaaaaaa');
@@ -916,6 +916,7 @@ class CallbackController extends Controller
 	    $message = '<div style="font-family:Times New Roman; font-size:18px;">
     	    <p>Dear Shop owner,<br/><br/>' . $mailContent. '<br/><br/>' . $order_info_content. '<br/><br/></p>
            </div>';
+	           $subject = 'Missing customer_no/order_no details on PlentyMarkets Version 7.0.0';
 	           $mailer = pluginApp(MailerContract::class);
                    $mailer->sendHtml($message, $toAddress, $subject, [], [], null, (array) $attachment);
 	           
