@@ -903,7 +903,7 @@ class CallbackController extends Controller
 		   $mailContent = 'We would like to inform you that customer number is missing for below order details<br/><br/>';   
 	   }
 	           $system_version   = NovalnetConstants::PLUGIN_VERSION;
-	           $order_info_content = 'TID: ' . $this->aryCaptureParams['tid'] . '<br/>Date: '. $this->aryCaptureParams['ta_date'] . '<br/><br/> Time: '. $this->aryCaptureParams['ta_time'] . '<br/><br/> URL: '. $this->aryCaptureParams['product'] . '<br/><br/> Email: '. $this->aryCaptureParams['email'] . '<br/><br/> Amount: ' . ($this->aryCaptureParams['amount'] / 100) . ' ' . $this->aryCaptureParams['currency'] . '<br/><br/> Systemname: Plentymarkets <br/><br/>  Version: '. $system_version . '<br/> <br/> Regards, <br/> NovalnetAG.';
+	           $order_info_content = 'TID: ' . $this->aryCaptureParams['tid'] . '<br/><br/> Date: '. $this->aryCaptureParams['ta_date'] . '<br/><br/> Time: '. $this->aryCaptureParams['ta_time'] . '<br/><br/> URL: '. $this->aryCaptureParams['product'] . '<br/><br/> Email: '. $this->aryCaptureParams['email'] . '<br/><br/> Amount: ' . ($this->aryCaptureParams['amount'] / 100) . ' ' . $this->aryCaptureParams['currency'] . '<br/><br/> Systemname: Plentymarkets <br/><br/>  Version: '. $system_version . '<br/> <br/> Regards, <br/> NovalnetAG.';
 		   
 	    $message = '<div style="font-family:Times New Roman; font-size:18px;">
     	    <p>Dear Technic Team,<br/><br/>' . $mailContent. '<br/>' . $order_info_content. '<br/><br/></p>
