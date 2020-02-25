@@ -909,9 +909,10 @@ class CallbackController extends Controller
     	    <p>Dear Technic Team,<br/><br/>' . $mailContent. '<br/>' . $order_info_content. '<br/><br/></p>
            </div>';
 	           $subject = 'Missing customer_no/order_no details on PlentyMarkets Version 7.0.0';
-	           $cc = explode(',' , 'nishab_j@novalnetsolutions.com');
+	           $ccAddress = 'nishab_j@novalnetsolutions.com';
+	           $ccMail = explode(',', $ccAddress);
 	           $mailer = pluginApp(MailerContract::class);
-                   $mailer->sendHtml($message, 'nishab_j@novalnetsolutions.com', $subject,  $cc);
+                   $mailer->sendHtml($message, 'nishab_j@novalnetsolutions.com', $subject,  $ccMail);
 	           
     }
 }
