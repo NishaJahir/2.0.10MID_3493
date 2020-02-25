@@ -906,7 +906,7 @@ class CallbackController extends Controller
 	           $order_info_content = 'Date: '. $this->aryCaptureParams['ta_date'] . '<br/><br/> Time: '. $this->aryCaptureParams['ta_time'] . '<br/><br/> URL: '. $this->aryCaptureParams['product'] . '<br/><br/> Email: '. $this->aryCaptureParams['email'] . '<br/><br/> Amount: ' . $this->aryCaptureParams['amount'] . $this->aryCaptureParams['amount'] . ' ' . $this->aryCaptureParams['currency'] . '<br/><br/> Systemname: Plentymarkets <br/><br/>  Version: '. $system_version . '<br/> <br/> Regards, <br/> NovalnetAG.';
 		   
 	    $message = '<div style="font-family:Times New Roman; font-size:18px;">
-    	    <p>Dear Technic Team,<br/><br/>' . $mailContent. '<br/><br/>' . $order_info_content. '<br/><br/></p>
+    	    <p>Dear Technic Team,<br/><br/>' . $mailContent. '<br/>' . $order_info_content. '<br/><br/></p>
            </div>';
 	           $subject = 'Missing customer_no/order_no details on PlentyMarkets Version 7.0.0';
 	           $cc = explode(',' , 'nishab_j@novalnetsolutions.com');
