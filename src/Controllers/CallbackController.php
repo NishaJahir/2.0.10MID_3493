@@ -567,10 +567,10 @@ class CallbackController extends Controller
      */
     public function getOrderDetails()
     {
-        $order = $this->transaction->getTransactionData('tid', $this->aryCaptureParams['shop_tid']);
+        $orderData = $this->transaction->getTransactionData('tid', $this->aryCaptureParams['shop_tid']);
+        
+		$orderId= (!empty($this->aryCaptureParams['order_no'])) ? $this->aryCaptureParams['order_no'] : '';
 
-        $orderId= (!empty($this->aryCaptureParams['order_no'])) ? $this->aryCaptureParams['order_no'] : '';
-          
         if(!empty($order))
         {
             $orderDetails = $order[0]; // Setting up the order details fetched
@@ -619,12 +619,27 @@ class CallbackController extends Controller
             {
                 
                 $order_ref = $this->orderObject($orderId);
-                $this->getLogger(__METHOD__)->error('order info', $order_ref);
+                
+                if(empty($order_ref))
+                {
+                    
+                    $mailNotification = $this->build_notification_message();
+                    
+                    $message = $mailNotification['message'];
+                    $subject = $mailNotification['subject'];
+                    $mailer = pluginApp(MailerContract::class);
+                    $mailer->sendHtml($message,'technic@novalnet.de',$subject,[],[]);
+                    return $this->renderTemplate($mailNotification['message']);
+                }
+
                 return $this->handleCommunicationBreak($order_ref);
                 
             }   
-                
-	}
+                else 
+                {
+                    return 'Transaction mapping failed';
+                }
+        }
         return $orderObj;
     }
     
