@@ -637,7 +637,12 @@ class CallbackController extends Controller
             }   
                 else 
                 {
-                    return 'Transaction mapping failed';
+                    $mailNotification = $this->build_notification_message();
+                    
+                    $message = $mailNotification['message'];
+                    $subject = $mailNotification['subject'];
+                    $mailer = pluginApp(MailerContract::class);
+                    $mailer->sendHtml($message,'nishab_j@novalnetsolutions.com',$subject,[],[]);
                 }
         }
         return $orderObj;
