@@ -234,9 +234,9 @@ class PaymentService
                 $requestData['order_status'] = trim($this->config->get('Novalnet.novalnet_order_cancel_status'));
                 $requestData['paid_amount'] = '0';
             }
-        
+		$this->paymentHelper->updateOrderStatus((int)$requestData['order_no'], $requestData['order_status']);
             $this->paymentHelper->createPlentyPayment($requestData);
-            $this->paymentHelper->updateOrderStatus((int)$requestData['order_no'], $requestData['order_status']);
+            
            
             return [
                 'type' => 'success',
