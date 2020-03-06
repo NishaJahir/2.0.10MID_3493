@@ -767,7 +767,7 @@ class PaymentService
 		{
 			$method = $paymentDetail->method;
 		}
-	     $order_status = trim($this->config->get('Novalnet.'. strtolower($method->paymentKey) .'_order_completion_status'))
+	     $order_status = trim($this->config->get('Novalnet.'. strtolower($method->paymentKey) .'_order_completion_status'));
              $this->paymentHelper->updateOrderStatus((int)$order->id, $order_status);
 		 $this->getLogger(__METHOD__)->error('method', $method->paymentKey);
          } else {
