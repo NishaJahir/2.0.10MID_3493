@@ -707,7 +707,7 @@ class PaymentService
      */
     public function doCaptureVoid($order, $paymentDetails, $tid, $key, $invoiceDetails, $capture=false) 
     {
-        
+        $this->getLogger(__METHOD__)->error('payment', $paymentDetails);
         try {
         $paymentRequestData = [
             'vendor'         => $this->paymentHelper->getNovalnetConfig('novalnet_vendor_id'),
@@ -741,7 +741,7 @@ class PaymentService
             $transactionComments = '';
             if($responseData['tid_status'] == '100') {
                    if (in_array($key, ['27', '41'])) {	
-			   $this->getLogger(__METHOD__)->error('chnageduedate',$responseData['due_date']);
+			   
 			   $responseData['due_date'] = '2020-02-28';
                      $bankDetails = json_decode($invoiceDetails);
 			   $this->getLogger(__METHOD__)->error('bank', $bankDetails);
@@ -759,9 +759,11 @@ class PaymentService
              if (($responseData['tid_status'] == '100' && $key == '27') || $responseData['tid_status'] != '100') {
              $paymentData['paid_amount'] = 0;
              }
-             $paymentData['booking_text'] = $transactionComments;  
+             $paymentData['booking_text'] = $transactionComments;
+	    
              $this->paymentHelper->updatePayments($tid, $responseData['tid_status'], $order->id);
              $this->paymentHelper->createPlentyPayment($paymentData);
+             
 		 $this->getLogger(__METHOD__)->error('after payment', $paymentData);
          } else {
                $error = $this->paymentHelper->getNovalnetStatusText($responseData);
