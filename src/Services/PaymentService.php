@@ -763,8 +763,13 @@ class PaymentService
 	    
              $this->paymentHelper->updatePayments($tid, $responseData['tid_status'], $order->id);
              $this->paymentHelper->createPlentyPayment($paymentData);
-             
-		 $this->getLogger(__METHOD__)->error('after payment', $paymentData);
+             foreach ($paymentDetails as $paymentDetail)
+		{
+			$method = $paymentDetail->method;
+		}
+	     $order_status = trim($this->config->get('Novalnet.'. strtolower($method->paymentKey) .'_order_completion_status'))
+             $this->paymentHelper->updateOrderStatus((int)$order->id, $order_status);
+		 $this->getLogger(__METHOD__)->error('method', $method->paymentKey);
          } else {
                $error = $this->paymentHelper->getNovalnetStatusText($responseData);
                $this->getLogger(__METHOD__)->error('Novalnet::doCaptureVoid', $error);
