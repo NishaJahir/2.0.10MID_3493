@@ -342,7 +342,7 @@ class PaymentService
             'key'                => $this->getkeyByPaymentKey($paymentKey),
             'payment_type'       => $this->getTypeByPaymentKey($paymentKey)
         ];
-
+        $this->getLogger(__METHOD__)->error('basket', $basket);
         if(!empty($address->houseNumber))
         {
             $paymentRequestData['house_no'] = $address->houseNumber;
