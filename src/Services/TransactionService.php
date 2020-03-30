@@ -68,4 +68,23 @@ class TransactionService
         $order    = $database->query(TransactionLog::class)->where($key, '=', $value)->get();
         return $order;
     }
+    
+    public function updateTransactionDatas($key, $value, $invoice_details)
+    {
+        $database = pluginApp(DataBase::class);
+        $order    = $database->query(TransactionLog::class)->where($key, '=', $value)->get();
+        $update_info = $order[0];
+        $additional_info = json_decode($update_info->additionalInfo, true);
+        $update_additional_info = [
+           'due_date' => '2020-04-05',
+            'invoice_type' => 'INV',
+            'invoice_account_holder' => 'NOVALNET'
+        ];
+        $additional_info = array_merge($additional_info, $update_additional_info);
+        $update_info->additionalInfo = json_encode($additional_info);
+        
+        $database->save($update_info);
+
+        return $update_info;
+    }
 }
