@@ -289,16 +289,7 @@ class PaymentService
     public function getRequestParameters(Basket $basket, $paymentKey = '')
     {
 	    
-	 /** @var \Plenty\Modules\Frontend\Services\VatService $vatService */
-        $vatService = pluginApp(\Plenty\Modules\Frontend\Services\VatService::class);
-
-        //we have to manipulate the basket because its stupid and doesnt know if its netto or gross
-        if(!count($vatService->getCurrentTotalVats())) {
-            $basket->itemSum = $basket->itemSumNet;
-            $basket->shippingAmount = $basket->shippingAmountNet;
-            $basket->basketAmount = $basket->basketAmountNet;
-        }
-	    
+	  
         $billingAddressId = $basket->customerInvoiceAddressId;
         $address = $this->addressRepository->findAddressById($billingAddressId);
         if(!empty($basket->customerShippingAddressId)){
